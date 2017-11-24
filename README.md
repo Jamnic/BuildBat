@@ -16,6 +16,7 @@ mvn -U clean install
 cd web
 mvn spring-boot:run
 ```
+By default, application runs on port 10000.
 
 ## Technologies and techniques
 
