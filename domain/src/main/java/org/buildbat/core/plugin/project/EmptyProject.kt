@@ -7,6 +7,7 @@ import org.buildbat.core.log.LogFile
 class EmptyProject(
         private val json: JsonEntity = EmptyJsonEntity()
 ) : Project, JsonEntity by json {
+    override fun modules() = throw IllegalStateException("There is no such project!")
     override fun addLog(log: LogFile) = throw IllegalStateException("There is no such project!")
     override fun logs() = throw IllegalStateException("There is no such project!")
     override fun cmd(command: String) = throw IllegalStateException("There is no such project!")

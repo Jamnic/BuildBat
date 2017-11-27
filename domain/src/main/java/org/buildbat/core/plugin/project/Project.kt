@@ -10,4 +10,5 @@ interface Project : JsonEntity {
     fun addLog(log: LogFile)
     fun logs(): Collection<LogFile>
     fun cmd(command: String): Future<Project>
+    fun modules(): List<Project>
 }

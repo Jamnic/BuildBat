@@ -1,7 +1,6 @@
 package org.buildbat.filesystem
 
 import org.buildbat.filesystem.directory.Directory
-import org.buildbat.filesystem.file.WritableFile
 import java.io.File
 import java.util.*
 import kotlin.streams.toList
@@ -17,10 +16,6 @@ abstract class FilesystemObject(
             else
                 File(path))
 
-    fun parent() : Directory {
-        return Directory(file.parent)
-    }
-
     fun mkdir(): Directory {
         file.mkdir()
         return Directory(path())
@@ -30,7 +25,7 @@ abstract class FilesystemObject(
         file.createNewFile()
     }
 
-    fun parent() : Directory {
+    fun parent(): Directory {
         return Directory(file.parent)
     }
 

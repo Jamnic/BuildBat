@@ -5,5 +5,4 @@ import org.buildbat.core.plugin.project.Project
 
 interface MavenProject : Project {
     fun mavenConfiguration(): MavenConfiguration
-    fun modules(): List<Project>
 }
