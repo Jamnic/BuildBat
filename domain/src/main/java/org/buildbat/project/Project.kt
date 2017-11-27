@@ -10,4 +10,5 @@ interface Project : Json {
     fun addLog(log: Log)
     fun logs(): Collection<Log>
     fun cmd(command: String): Future<Project>
+    fun modules(): List<Project>
 }
