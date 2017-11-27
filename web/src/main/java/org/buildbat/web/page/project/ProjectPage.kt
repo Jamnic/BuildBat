@@ -1,9 +1,9 @@
 package org.buildbat.web.page.project
 
-import org.buildbat.LogResponse
+import org.buildbat.core.future.FutureResult
 import org.buildbat.json.JsonObject
-import org.buildbat.project.BaseProject
-import org.buildbat.project.BaseProjects
+import org.buildbat.core.plugin.project.BaseProject
+import org.buildbat.core.plugin.project.BaseProjects
 import org.buildbat.web.page.project.request.AddProjectRequest
 import org.buildbat.web.page.project.response.ProjectInfoResponse
 import org.springframework.web.bind.annotation.*
@@ -20,9 +20,9 @@ class ProjectPage {
     ): ProjectInfoResponse {
         val project = projects.find(projectName)
         return ProjectInfoResponse(
-                project.name(),
+                project.key(),
                 project.directory().path(),
-                project.logs().map { log -> LogResponse(log.file()) },
+                project.logs().map { logFile -> FutureResult(logFile) },
                 project.json().params())
     }
 

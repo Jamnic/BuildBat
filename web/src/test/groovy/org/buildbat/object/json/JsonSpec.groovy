@@ -1,7 +1,7 @@
 package org.buildbat.json
 
 import kotlin.Pair
-import org.buildbat.JsonFile
+import org.buildbat.core.file.JsonFile
 import org.buildbat.filesystem.file.BaseFile
 import spock.lang.Specification
 

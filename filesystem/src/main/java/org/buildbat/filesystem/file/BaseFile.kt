@@ -16,4 +16,8 @@ class BaseFile(
         val reader = FileReader(realFile())
         return reader.readText()
     }
+
+    override fun copyTo(destinationPath: File): WritableFile {
+        return WritableFile(destinationPath.path()).write(read())
+    }
 }

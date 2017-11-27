@@ -1,8 +1,8 @@
 package org.buildbat.web.page.cmd
 
-import org.buildbat.LogResponse
-import org.buildbat.plugin.cmd.Cmd
-import org.buildbat.project.BaseProjects
+import org.buildbat.core.future.FutureResult
+import org.buildbat.core.plugin.cmd.Cmd
+import org.buildbat.core.plugin.project.BaseProjects
 import org.buildbat.web.page.cmd.request.CmdExecutionRequest
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -19,7 +19,7 @@ class CmdPage {
     @PostMapping
     fun command(
             @RequestBody request: CmdExecutionRequest
-    ): LogResponse {
+    ): FutureResult {
         return cmd
                 .execute(request.command, projects.find(request.projectName))
                 .resolve({ future -> projects.save(future) })

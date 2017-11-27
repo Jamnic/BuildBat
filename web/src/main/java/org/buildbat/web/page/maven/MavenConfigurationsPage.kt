@@ -1,7 +1,7 @@
 package org.buildbat.web.page.maven
 
-import org.buildbat.plugin.maven.MavenConfigurations
-import org.buildbat.plugin.maven.configuration.BaseMavenConfiguration
+import org.buildbat.core.plugin.maven.configuration.MavenConfigurations
+import org.buildbat.core.plugin.maven.configuration.BaseMavenConfiguration
 import org.buildbat.web.page.maven.request.NewMavenConfigurationRequest
 import org.buildbat.web.page.maven.response.MavenConfigurationInfoResponse
 import org.springframework.web.bind.annotation.*
@@ -24,7 +24,7 @@ class MavenConfigurationsPage {
                 .list()
                 .map {
                     MavenConfigurationInfoResponse(
-                            it.name(),
+                            it.key(),
                             it.json()["version"],
                             it.json()["home"],
                             it.home().exists())

@@ -1,8 +1,8 @@
 package org.buildbat.web.page.maven
 
-import org.buildbat.LogResponse
-import org.buildbat.plugin.maven.Maven
-import org.buildbat.plugin.maven.MavenProjects
+import org.buildbat.core.future.FutureResult
+import org.buildbat.core.plugin.maven.Maven
+import org.buildbat.core.plugin.maven.project.MavenProjects
 import org.buildbat.web.page.maven.request.MavenExecutionRequest
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -29,7 +29,7 @@ class MavenPage {
     @PostMapping
     fun command(
             @RequestBody request: MavenExecutionRequest
-    ): LogResponse {
+    ): FutureResult {
         val mavenProject = mavenProjects.find(request.projectName)
         return maven
                 .execute(request.command, mavenProject)

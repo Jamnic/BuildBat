@@ -1,7 +1,7 @@
 package org.buildbat.web.page.tomcat
 
-import org.buildbat.plugin.tomcat.TomcatConfigurations
-import org.buildbat.plugin.tomcat.container.EmptyTomcatContainer
+import org.buildbat.core.plugin.tomcat.configuration.TomcatConfigurations
+import org.buildbat.core.plugin.tomcat.container.EmptyTomcatContainer
 import org.buildbat.web.page.tomcat.response.TomcatConfigurationInfoResponse
 import org.buildbat.web.page.tomcat.response.TomcatContainerInfoResponse
 import org.springframework.web.bind.annotation.GetMapping
@@ -19,16 +19,17 @@ class TomcatConfigurationPage {
     fun get(@PathVariable configurationName: String): TomcatConfigurationInfoResponse {
         val tomcatConfiguration = tomcatConfigurations.find(configurationName)
 
-        val tomcatContainer = tomcatConfiguration.container()
+        val tomcatContainer = tomcatConfiguration.tomcatContainer()
 
         return TomcatConfigurationInfoResponse(
-                tomcatConfiguration.name(),
+                tomcatConfiguration.key(),
                 tomcatConfiguration.json()["port"],
+                tomcatConfiguration.json()["serverXml"],
                 if (tomcatContainer is EmptyTomcatContainer)
                     TomcatContainerInfoResponse(containerExists = false)
                 else
                     TomcatContainerInfoResponse(
-                            tomcatContainer.name(),
+                            tomcatContainer.key(),
                             tomcatContainer.json()["home"]))
     }
 }

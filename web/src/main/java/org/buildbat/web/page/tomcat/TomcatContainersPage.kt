@@ -1,7 +1,7 @@
 package org.buildbat.web.page.tomcat
 
-import org.buildbat.plugin.tomcat.TomcatContainers
-import org.buildbat.plugin.tomcat.container.BaseTomcatContainer
+import org.buildbat.core.plugin.tomcat.container.TomcatContainers
+import org.buildbat.core.plugin.tomcat.container.BaseTomcatContainer
 import org.buildbat.web.page.tomcat.request.NewTomcatContainerRequest
 import org.buildbat.web.page.tomcat.response.TomcatContainerInfoResponse
 import org.springframework.web.bind.annotation.*
@@ -22,6 +22,6 @@ class TomcatContainersPage {
     fun get(): List<TomcatContainerInfoResponse> {
         return tomcatContainers
                 .list()
-                .map { configuration -> TomcatContainerInfoResponse(configuration.name()) }
+                .map { configuration -> TomcatContainerInfoResponse(configuration.key()) }
     }
 }

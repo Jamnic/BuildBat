@@ -1,8 +1,8 @@
 package org.buildbat.web.page.git
 
-import org.buildbat.LogResponse
-import org.buildbat.plugin.git.Git
-import org.buildbat.plugin.git.GitProjects
+import org.buildbat.core.future.FutureResult
+import org.buildbat.core.plugin.git.Git
+import org.buildbat.core.plugin.git.project.GitProjects
 import org.buildbat.web.page.git.request.CloneRequest
 import org.buildbat.web.page.git.request.GitExecutionRequest
 import org.springframework.web.bind.annotation.PostMapping
@@ -23,17 +23,17 @@ class GitPage {
     @PostMapping
     fun command(
             @RequestBody request: GitExecutionRequest
-    ): LogResponse {
+    ): FutureResult {
         return git
                 .execute(request.command, gitProjects.find(request.projectName))
-                .resolve({ future -> gitProjects.save(future) })
+                .resolve()
     }
 
     // TODO deprecated?
     @PostMapping("/clone")
     fun clone(
             @RequestBody request: CloneRequest
-    ): LogResponse {
+    ): FutureResult {
         return git
                 .clone(request.repository, gitProjects.directory())
                 .resolve()

@@ -1,8 +1,8 @@
 package org.buildbat.web.page.tomcat
 
-import org.buildbat.plugin.tomcat.TomcatConfigurations
-import org.buildbat.plugin.tomcat.configuration.BaseTomcatConfiguration
-import org.buildbat.plugin.tomcat.container.EmptyTomcatContainer
+import org.buildbat.core.plugin.tomcat.configuration.TomcatConfigurations
+import org.buildbat.core.plugin.tomcat.configuration.BaseTomcatConfiguration
+import org.buildbat.core.plugin.tomcat.container.EmptyTomcatContainer
 import org.buildbat.web.page.tomcat.request.NewTomcatConfigurationRequest
 import org.buildbat.web.page.tomcat.response.TomcatConfigurationInfoResponse
 import org.buildbat.web.page.tomcat.response.TomcatContainerInfoResponse
@@ -25,14 +25,15 @@ class TomcatConfigurationsPage {
         return tomcatConfigurations.list()
                 .map {
                     TomcatConfigurationInfoResponse(
-                            it.name(),
+                            it.key(),
                             it.json()["port"],
-                            if (it.container() is EmptyTomcatContainer)
+                            it.json()["serverXml"],
+                            if (it.tomcatContainer() is EmptyTomcatContainer)
                                 TomcatContainerInfoResponse(containerExists = false)
                             else
                                 TomcatContainerInfoResponse(
-                                        it.container().name(),
-                                        it.container().json()["home"]))
+                                        it.tomcatContainer().key(),
+                                        it.tomcatContainer().json()["home"]))
                 }
     }
 }

@@ -1,6 +1,6 @@
 package org.buildbat.web.page.maven
 
-import org.buildbat.plugin.maven.MavenConfigurations
+import org.buildbat.core.plugin.maven.configuration.MavenConfigurations
 import org.buildbat.web.page.maven.response.MavenConfigurationInfoResponse
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -18,7 +18,7 @@ class MavenConfigurationPage {
         val mavenConfiguration = mavenConfigurations.find(configurationName)
 
         return MavenConfigurationInfoResponse(
-                mavenConfiguration.name(),
+                mavenConfiguration.key(),
                 mavenConfiguration.json()["version"],
                 mavenConfiguration.json()["home"],
                 mavenConfiguration.home().exists())

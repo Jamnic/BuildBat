@@ -1,10 +1,10 @@
 package org.buildbat.web.page.multi
 
 import org.buildbat.execution.command.request.ShellCommandCreationCommand
-import org.buildbat.plugin.cmd.command.CmdShellCommandCreationCommand
-import org.buildbat.plugin.git.command.GitShellCommandCreationCommand
-import org.buildbat.plugin.maven.command.MavenShellCommandCreationCommand
-import org.buildbat.plugin.tomcat.command.TomcatShellCommandCreationCommand
+import org.buildbat.core.plugin.cmd.command.CmdShellCommandCreationCommand
+import org.buildbat.core.plugin.git.command.GitShellCommandCreationCommand
+import org.buildbat.core.plugin.maven.command.MavenShellCommandCreationCommand
+import org.buildbat.core.plugin.tomcat.command.TomcatShellCommandCreationCommand
 import org.buildbat.web.page.git.request.GitExecutionRequest
 import org.buildbat.web.page.maven.request.MavenExecutionRequest
 import org.buildbat.web.page.tomcat.request.TomcatExecutionRequest

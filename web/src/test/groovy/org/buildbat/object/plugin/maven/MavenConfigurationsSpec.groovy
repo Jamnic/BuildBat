@@ -2,7 +2,7 @@ package org.buildbat.object.plugin.maven
 
 import org.buildbat.filesystem.file.BaseFile
 import org.buildbat.json.JsonArray
-import org.buildbat.JsonFile
+import org.buildbat.core.file.JsonFile
 import org.buildbat.object.plugin.maven.config.BaseMavenConfig
 import spock.lang.Specification
 

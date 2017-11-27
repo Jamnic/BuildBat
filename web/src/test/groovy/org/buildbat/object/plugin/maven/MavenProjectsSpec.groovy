@@ -1,9 +1,10 @@
 package org.buildbat.object.plugin.maven
 
+import org.buildbat.core.plugin.maven.project.MavenProjects
 import org.buildbat.filesystem.file.BaseFile
 import org.buildbat.filesystem.directory.Directory
 import org.buildbat.json.JsonArray
-import org.buildbat.JsonFile
+import org.buildbat.core.file.JsonFile
 import org.buildbat.object.plugin.maven.config.BaseMavenConfig
 import org.buildbat.object.plugin.maven.project.BaseMavenProject
 import org.buildbat.object.project.BaseProjects
