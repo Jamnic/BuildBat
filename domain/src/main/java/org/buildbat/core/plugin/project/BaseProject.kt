@@ -42,6 +42,10 @@ class BaseProject(
                 "pathName" to name.replace(" ", "_"))
     }
 
+    override fun modules(): List<Project> {
+        return listOf()
+    }
+
     // TODO move somewhere else
     override fun cmd(command: String): Future<Project> {
         val logFile = log.new(name)

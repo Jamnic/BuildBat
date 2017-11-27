@@ -17,6 +17,10 @@ abstract class FilesystemObject(
             else
                 File(path))
 
+    fun parent() : Directory {
+        return Directory(file.parent)
+    }
+
     fun mkdir(): Directory {
         file.mkdir()
         return Directory(path())

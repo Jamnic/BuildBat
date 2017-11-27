@@ -14,9 +14,9 @@ class ShellCommandParam(
     fun resolve(): String {
         return command.replace(PARAM_REGEX, {
             val parameterValue = jsonObject[removeBrackets(it.value)]
-            if (parameterValue == "")
+            if (parameterValue == "") {
                 it.value
-            else
+            } else
                 parameterValue
         })
     }
