@@ -19,7 +19,7 @@ abstract class ConfigFileRepository<T : JsonEntity>(
         return if (json != null) createFromJson(json) else createFromName(name)
     }
 
-    override fun save(t: T) : T {
+    override fun save(t: T): T {
         configFile.save(t.json())
         return t
     }

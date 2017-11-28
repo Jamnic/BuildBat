@@ -2,7 +2,6 @@ package org.buildbat.core.log
 
 import org.buildbat.core.log.configuration.LogConfigurations
 import org.buildbat.filesystem.directory.Directory
-import org.buildbat.filesystem.file.File
 import java.time.LocalDate
 
 class LogFactory(
@@ -17,6 +16,6 @@ class LogFactory(
     }
 
     private fun createLogFile(name: String, id: Long): LogFile {
-        return LogFile(directory.cd(name).file("${LocalDate.now()} build $id.log").create())
+        return LogFile(directory.mkdir().cd(name).mkdir().file("${LocalDate.now()} build $id.log").create())
     }
 }

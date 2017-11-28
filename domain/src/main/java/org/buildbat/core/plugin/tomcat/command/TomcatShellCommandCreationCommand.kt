@@ -1,10 +1,10 @@
 package org.buildbat.core.plugin.tomcat.command
 
+import org.buildbat.core.plugin.tomcat.configuration.TomcatConfigurations
+import org.buildbat.core.plugin.tomcat.project.WarProjects
 import org.buildbat.execution.command.request.ShellCommandCreationCommand
 import org.buildbat.execution.command.shell.ParametrizedShellCommand
 import org.buildbat.execution.command.shell.ShellCommand
-import org.buildbat.core.plugin.tomcat.configuration.TomcatConfigurations
-import org.buildbat.core.plugin.tomcat.project.WarProjects
 
 class TomcatShellCommandCreationCommand(
         private val command: String,

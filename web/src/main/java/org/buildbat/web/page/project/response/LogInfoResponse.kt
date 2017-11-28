@@ -1,8 +1,8 @@
-package org.buildbat.core.future
+package org.buildbat.web.page.project.response
 
 import org.buildbat.core.log.LogFile
 
-class FutureResult(
+class LogInfoResponse(
         val name: String = "",
         val logFile: String = ""
 ) {

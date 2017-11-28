@@ -1,7 +1,7 @@
 package org.buildbat.web.page.maven
 
-import org.buildbat.core.plugin.maven.configuration.MavenConfigurations
 import org.buildbat.core.plugin.maven.configuration.BaseMavenConfiguration
+import org.buildbat.core.plugin.maven.configuration.MavenConfigurations
 import org.buildbat.web.page.maven.request.NewMavenConfigurationRequest
 import org.buildbat.web.page.maven.response.MavenConfigurationInfoResponse
 import org.springframework.web.bind.annotation.*

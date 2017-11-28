@@ -1,14 +1,15 @@
 package org.buildbat.core.plugin.project
 
-import org.buildbat.core.future.Future
-import org.buildbat.execution.command.shell.ParametrizedShellCommand
-import org.buildbat.execution.executable.LoggedExecutable
-import org.buildbat.filesystem.directory.Directory
-import org.buildbat.json.JsonObject
+import org.buildbat.core.future.BaseFutureTask
+import org.buildbat.core.future.FutureTask
 import org.buildbat.core.log.LogFactory
 import org.buildbat.core.log.LogFile
 import org.buildbat.core.log.LogHistory
 import org.buildbat.core.plugin.cmd.command.CmdShellCommand
+import org.buildbat.execution.command.shell.ParametrizedShellCommand
+import org.buildbat.execution.executable.LoggedExecutable
+import org.buildbat.filesystem.directory.Directory
+import org.buildbat.json.JsonObject
 
 class BaseProject(
         private val name: String,
@@ -47,9 +48,9 @@ class BaseProject(
     }
 
     // TODO move somewhere else
-    override fun cmd(command: String): Future<Project> {
+    override fun cmd(command: String): FutureTask<Project> {
         val logFile = log.new(name)
-        return Future({ CmdShellCommand(command, this.directory()) })
+        return BaseFutureTask({ CmdShellCommand(command, this.directory()) })
                 .then { ParametrizedShellCommand(it, this) }
                 .then { LoggedExecutable(it, logFile) }
                 .then { this }

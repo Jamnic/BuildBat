@@ -1,8 +1,8 @@
 package org.buildbat.core.plugin.git.project
 
-import org.buildbat.json.JsonObject
 import org.buildbat.core.plugin.project.BaseProject
 import org.buildbat.core.plugin.project.Project
+import org.buildbat.json.JsonObject
 
 class BaseGitProject(
         project: Project,

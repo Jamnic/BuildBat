@@ -1,7 +1,7 @@
 package org.buildbat.web.page.tomcat
 
-import org.buildbat.core.plugin.tomcat.configuration.TomcatConfigurations
 import org.buildbat.core.plugin.tomcat.configuration.BaseTomcatConfiguration
+import org.buildbat.core.plugin.tomcat.configuration.TomcatConfigurations
 import org.buildbat.core.plugin.tomcat.container.EmptyTomcatContainer
 import org.buildbat.web.page.tomcat.request.NewTomcatConfigurationRequest
 import org.buildbat.web.page.tomcat.response.TomcatConfigurationInfoResponse

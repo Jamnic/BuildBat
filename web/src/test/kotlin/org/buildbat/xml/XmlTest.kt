@@ -1,5 +1,6 @@
 package org.buildbat.xml
 
+import org.buildbat.core.plugin.xml.XmlFile
 import org.buildbat.filesystem.file.BaseFile
 import org.junit.Test
 

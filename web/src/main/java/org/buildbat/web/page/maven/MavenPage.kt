@@ -1,8 +1,8 @@
 package org.buildbat.web.page.maven
 
-import org.buildbat.core.future.FutureResult
 import org.buildbat.core.plugin.maven.Maven
 import org.buildbat.core.plugin.maven.project.MavenProjects
+import org.buildbat.core.task.TaskPoolProvider
 import org.buildbat.web.page.maven.request.MavenExecutionRequest
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -25,14 +25,14 @@ class MavenPage {
 
     private val maven = Maven()
     private val mavenProjects = MavenProjects()
+    private val taskPool = TaskPoolProvider.INSTANCE.taskPool
 
     @PostMapping
     fun command(
             @RequestBody request: MavenExecutionRequest
-    ): FutureResult {
+    ) {
         val mavenProject = mavenProjects.find(request.projectName)
-        return maven
-                .execute(request.command, mavenProject)
-                .resolve()
+        taskPool.add(
+                maven.execute(request.command, mavenProject))
     }
 }

@@ -1,1 +1,7 @@
-[{"name":"Example Maven","version":"3.5.0","home":"C:\\apache-maven-3.5.0"}]
+[
+  {
+    "name": "Example Maven",
+    "version": "3.5.2",
+    "home": "E:\\Workspace\\Environment\\apache-maven-3.5.2"
+  }
+]

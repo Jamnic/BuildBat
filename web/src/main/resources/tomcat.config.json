@@ -1,7 +1,7 @@
 [
   {
-    "name": "Example_Tomcat_Configuration_8.0",
-    "tomcatContainer": "Example_Tomcat_Container_8.0",
+    "name": "Example Tomcat Configuration",
+    "tomcatContainer": "Example Tomcat Container",
     "port": "1050"
   }
 ]

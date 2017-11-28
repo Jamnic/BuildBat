@@ -2,6 +2,7 @@ package org.buildbat.core.log
 
 import org.buildbat.filesystem.directory.Directory
 
+// TODO bad design
 class LogHistory(
         name: String,
         private val logs: MutableList<LogFile> = Directory("logs/$name").mkdir().files().map { file -> LogFile(file) }.toMutableList()

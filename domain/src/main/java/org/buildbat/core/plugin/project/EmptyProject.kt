@@ -1,8 +1,8 @@
 package org.buildbat.core.plugin.project
 
+import org.buildbat.core.log.LogFile
 import org.buildbat.json.EmptyJsonEntity
 import org.buildbat.json.JsonEntity
-import org.buildbat.core.log.LogFile
 
 class EmptyProject(
         private val json: JsonEntity = EmptyJsonEntity()

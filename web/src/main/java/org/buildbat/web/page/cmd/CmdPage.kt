@@ -1,8 +1,8 @@
 package org.buildbat.web.page.cmd
 
-import org.buildbat.core.future.FutureResult
 import org.buildbat.core.plugin.cmd.Cmd
 import org.buildbat.core.plugin.project.BaseProjects
+import org.buildbat.core.task.TaskPoolProvider
 import org.buildbat.web.page.cmd.request.CmdExecutionRequest
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -15,14 +15,14 @@ class CmdPage {
 
     private val cmd = Cmd()
     private val projects = BaseProjects()
+    private val taskPool = TaskPoolProvider.INSTANCE.taskPool
 
     @PostMapping
     fun command(
             @RequestBody request: CmdExecutionRequest
-    ): FutureResult {
-        return cmd
-                .execute(request.command, projects.find(request.projectName))
-                .resolve({ future -> projects.save(future) })
+    ) {
+        taskPool.add(
+                cmd.execute(request.command, projects.find(request.projectName)))
     }
 
 }

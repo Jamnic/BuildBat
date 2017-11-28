@@ -9,7 +9,7 @@ class LogConfigurationsConfigFileRepository(
         configFile: ConfigFile
 ) : ConfigFileRepository<LogConfiguration>(configFile) {
 
-    constructor(configFilePath : String) : this(ConfigFile(configFilePath))
+    constructor(configFilePath: String) : this(ConfigFile(configFilePath))
 
     override fun createFromJson(json: JsonObject) = LogConfiguration(json)
     override fun createFromName(name: String) = LogConfiguration(name)

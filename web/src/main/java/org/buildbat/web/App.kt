@@ -21,7 +21,7 @@ open class App : SpringBootServletInitializer() {
     }
 
     @Bean
-    open fun mappingHandlerMapping() : RequestMappingHandlerMapping {
+    open fun mappingHandlerMapping(): RequestMappingHandlerMapping {
         val requestMappingHandlerMapping = RequestMappingHandlerMapping()
         requestMappingHandlerMapping.setUseSuffixPatternMatch(false)
         return requestMappingHandlerMapping

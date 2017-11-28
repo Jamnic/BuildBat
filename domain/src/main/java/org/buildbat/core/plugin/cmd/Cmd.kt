@@ -1,7 +1,7 @@
 package org.buildbat.core.plugin.cmd
 
-import org.buildbat.core.future.Future
-import org.buildbat.core.future.LoggedFuture
+import org.buildbat.core.future.BaseFutureTask
+import org.buildbat.core.future.FutureTask
 import org.buildbat.core.log.LogFactory
 import org.buildbat.core.plugin.cmd.command.CmdShellCommand
 import org.buildbat.core.plugin.project.BaseProjects
@@ -14,14 +14,12 @@ class Cmd(
         private val projects: BaseProjects = BaseProjects()
 ) {
 
-    fun execute(command: String, project: Project): LoggedFuture<Project> {
+    fun execute(command: String, project: Project): FutureTask<Project> {
         val logFile = logFactory.new(project.key())
         project.addLog(logFile)
-        return LoggedFuture(
-                logFile,
-                Future({ CmdShellCommand(command, project.directory()) })
-                        .then { ParametrizedShellCommand(it, project) }
-                        .then { LoggedExecutable(it, logFile) }
-                        .then { projects.save(project) })
+        return BaseFutureTask({ CmdShellCommand(command, project.directory()) })
+                .then { ParametrizedShellCommand(it, project) }
+                .then { LoggedExecutable(it, logFile) }
+                .then { projects.save(project) }
     }
 }

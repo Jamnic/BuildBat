@@ -3,8 +3,8 @@ package org.buildbat.core.plugin.tomcat.configuration
 import org.buildbat.core.plugin.tomcat.ServerXmlFile
 import org.buildbat.core.plugin.tomcat.container.TomcatContainer
 import org.buildbat.core.plugin.tomcat.container.TomcatContainers
-import org.buildbat.json.JsonEntity
 import org.buildbat.json.BaseJsonEntity
+import org.buildbat.json.JsonEntity
 import org.buildbat.json.JsonObject
 
 // TODO something is wrong here
@@ -25,12 +25,12 @@ class BaseTomcatConfiguration(
 
     constructor(
             jsonObject: JsonObject
-            ) : this(
-    jsonObject["name"],
-    jsonObject["tomcatContainer"],
-    jsonObject["port"],
+    ) : this(
+            jsonObject["name"],
+            jsonObject["tomcatContainer"],
+            jsonObject["port"],
             ServerXmlFile(jsonObject["name"], jsonObject["port"]),
-    jsonObject)
+            jsonObject)
 
     override fun tomcatContainer(): TomcatContainer {
         return tomcatContainer

@@ -1,9 +1,9 @@
 package org.buildbat.core.plugin.tomcat.project
 
-import org.buildbat.core.plugin.tomcat.WarFilePath
+import org.buildbat.core.file.PomProperties
 import org.buildbat.core.plugin.project.BaseProject
 import org.buildbat.core.plugin.project.Project
-import org.buildbat.core.file.PomProperties
+import org.buildbat.core.plugin.tomcat.WarFilePath
 import org.buildbat.filesystem.file.File
 import org.buildbat.json.JsonObject
 

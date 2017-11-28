@@ -1,10 +1,10 @@
 package org.buildbat.web.page.project
 
-import org.buildbat.core.future.FutureResult
-import org.buildbat.json.JsonObject
 import org.buildbat.core.plugin.project.BaseProject
 import org.buildbat.core.plugin.project.BaseProjects
+import org.buildbat.json.JsonObject
 import org.buildbat.web.page.project.request.AddProjectRequest
+import org.buildbat.web.page.project.response.LogInfoResponse
 import org.buildbat.web.page.project.response.ProjectInfoResponse
 import org.springframework.web.bind.annotation.*
 
@@ -22,7 +22,7 @@ class ProjectPage {
         return ProjectInfoResponse(
                 project.key(),
                 project.directory().path(),
-                project.logs().map { logFile -> FutureResult(logFile) },
+                project.logs().map { logFile -> LogInfoResponse(logFile) },
                 project.json().params())
     }
 

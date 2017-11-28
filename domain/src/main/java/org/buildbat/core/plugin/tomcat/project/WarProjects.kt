@@ -1,8 +1,8 @@
 package org.buildbat.core.plugin.tomcat.project
 
-import org.buildbat.core.plugin.tomcat.project.repository.WarProjectsConfigFileRepository
 import org.buildbat.core.plugin.project.BaseProjects
 import org.buildbat.core.plugin.project.Projects
+import org.buildbat.core.plugin.tomcat.project.repository.WarProjectsConfigFileRepository
 import org.buildbat.core.repository.Repository
 
 class WarProjects(
