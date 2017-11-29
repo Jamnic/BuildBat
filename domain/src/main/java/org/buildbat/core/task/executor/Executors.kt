@@ -10,6 +10,6 @@ class Executors(
 
     // TODO find a better way to init executors
     init {
-        list().forEach { TaskPoolProvider.INSTANCE.taskPool.registerObserver(it) }
+        list().forEach { TaskPoolProvider.taskPool.registerObserver(it) }
     }
 }

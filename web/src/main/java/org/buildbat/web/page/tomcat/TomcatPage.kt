@@ -20,7 +20,7 @@ class TomcatPage {
     private val tomcatConfigurations = TomcatConfigurations()
     private val warProjects = WarProjects()
     private val tomcat = Tomcat()
-    private val taskPool = TaskPoolProvider.INSTANCE.taskPool
+    private val taskPool = TaskPoolProvider.taskPool
 
     @PostMapping
     fun command(

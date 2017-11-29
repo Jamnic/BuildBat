@@ -15,7 +15,7 @@ class CmdPage {
 
     private val cmd = Cmd()
     private val projects = BaseProjects()
-    private val taskPool = TaskPoolProvider.INSTANCE.taskPool
+    private val taskPool = TaskPoolProvider.taskPool
 
     @PostMapping
     fun command(

@@ -2,5 +2,8 @@
   {
     "name": "Example Tomcat Container",
     "home": "E:\\Workspace\\Environment\\apache-Tomcat-8.0.47"
+  }, {
+    "name": "Second Tomcat Container",
+    "home": "C:\\Job\\Environment\\Apache-Tomcat-8.0.26"
   }
 ]

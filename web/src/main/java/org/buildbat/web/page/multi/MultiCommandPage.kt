@@ -14,7 +14,7 @@ class MultiCommandPage {
 
     private val requestCommandMap = RequestCommandMap()
     private val multiCommand = MultiCommand()
-    private val taskPool = TaskPoolProvider.INSTANCE.taskPool
+    private val taskPool = TaskPoolProvider.taskPool
 
     @PostMapping
     fun command(

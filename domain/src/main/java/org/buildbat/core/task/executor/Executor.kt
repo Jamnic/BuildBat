@@ -5,4 +5,5 @@ import org.buildbat.json.JsonEntity
 
 interface Executor : TaskPoolObserver, JsonEntity {
     fun host(): String
+    fun isFree() : Boolean
 }

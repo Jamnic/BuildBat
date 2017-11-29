@@ -19,7 +19,7 @@ class GitPage {
 
     private val git = Git()
     private val gitProjects = GitProjects()
-    private val taskPool = TaskPoolProvider.INSTANCE.taskPool
+    private val taskPool = TaskPoolProvider.taskPool
 
     @PostMapping
     fun command(@RequestBody request: GitExecutionRequest) {

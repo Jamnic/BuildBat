@@ -4,6 +4,10 @@ class BaseFutureTask<out RESULT>(
         private val functionToRunInFuture: () -> RESULT
 ) : FutureTask<RESULT> {
 
+    override fun execute(): () -> RESULT {
+        return functionToRunInFuture
+    }
+
     override fun thread(): Thread {
         return Thread(Runnable { functionToRunInFuture() })
     }

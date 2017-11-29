@@ -25,14 +25,13 @@ class MavenPage {
 
     private val maven = Maven()
     private val mavenProjects = MavenProjects()
-    private val taskPool = TaskPoolProvider.INSTANCE.taskPool
+    private val taskPool = TaskPoolProvider.taskPool
 
     @PostMapping
-    fun command(
-            @RequestBody request: MavenExecutionRequest
-    ) {
-        val mavenProject = mavenProjects.find(request.projectName)
+    fun command(@RequestBody request: MavenExecutionRequest) {
         taskPool.add(
-                maven.execute(request.command, mavenProject))
+                maven.execute(
+                        request.command,
+                        mavenProjects.find(request.projectName)))
     }
 }

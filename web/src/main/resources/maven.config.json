@@ -3,5 +3,9 @@
     "name": "Example Maven",
     "version": "3.5.2",
     "home": "E:\\Workspace\\Environment\\apache-maven-3.5.2"
+  }, {
+    "name": "Second Maven",
+    "version": "3.2.3",
+    "home": "C:\\Job\\Environment\\Apache-Maven-3.2.3"
   }
 ]

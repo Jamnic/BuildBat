@@ -4,7 +4,6 @@ import org.buildbat.core.file.ConfigFile
 import org.buildbat.json.JsonEntity
 import org.buildbat.json.JsonObject
 
-
 abstract class ConfigFileRepository<T : JsonEntity>(
         private val configFile: ConfigFile
 ) : Repository<T, String> {

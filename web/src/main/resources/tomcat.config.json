@@ -3,5 +3,9 @@
     "name": "Example Tomcat Configuration",
     "tomcatContainer": "Example Tomcat Container",
     "port": "1050"
+  }, {
+    "name": "Second Tomcat Configuration",
+    "tomcatContainer": "Second Tomcat Container",
+    "port": "1049"
   }
 ]
