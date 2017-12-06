@@ -6,6 +6,7 @@ import org.buildbat.json.JsonObject
 import org.buildbat.web.page.project.request.AddProjectRequest
 import org.buildbat.web.page.project.response.LogInfoResponse
 import org.buildbat.web.page.project.response.ProjectInfoResponse
+import org.buildbat.web.page.project.response.ProjectLogsInfoResponse
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -15,15 +16,20 @@ class ProjectPage {
     private val projects = BaseProjects()
 
     @GetMapping
-    fun get(
-            @PathVariable projectName: String
-    ): ProjectInfoResponse {
+    fun get(@PathVariable projectName: String): ProjectInfoResponse {
         val project = projects.find(projectName)
         return ProjectInfoResponse(
                 project.key(),
                 project.directory().path(),
                 project.logs().map { logFile -> LogInfoResponse(logFile) },
                 project.json().params())
+    }
+
+    @GetMapping("/logs")
+    fun getLogs(@PathVariable projectName: String): ProjectLogsInfoResponse {
+        val project = projects.find(projectName)
+        return ProjectLogsInfoResponse(
+                project.logs().map { logFile -> LogInfoResponse(logFile) })
     }
 
     @DeleteMapping
