@@ -44,7 +44,7 @@ class ProjectPage {
             @PathVariable projectName: String,
             @RequestBody request: AddProjectRequest
     ) {
-        val params = request.customParams.map { entry -> Pair(entry.key, entry.value) }.toTypedArray()
+        val params = request.customParams.map { entry -> kotlin.Pair(entry.key, entry.value) }.toTypedArray()
 
         projects.save(BaseProject(JsonObject(
                 "name" to projectName,
