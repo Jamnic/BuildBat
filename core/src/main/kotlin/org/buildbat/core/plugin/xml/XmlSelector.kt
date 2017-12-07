@@ -22,11 +22,11 @@ open class XmlSelector(
                     .substringAfter("<$string")
                     .substringBefore("</$string>") + "</$string>"
             val attributes = toParse.substringBefore(">")
-            val content = toParse.substringAfter(">").substringBefore("</$string>")
+            val parsedContent = toParse.substringAfter(">").substringBefore("</$string>")
             return XmlSelector(
                     string,
                     attributes,
-                    content)
+                    parsedContent)
         } else {
             return EmptyXmlSelector()
         }
