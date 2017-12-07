@@ -1,6 +1,6 @@
 package org.buildbat.core.plugin.tomcat.command
 
-import org.buildbat.execution.command.shell.ShellCommand
+import org.buildbat.core.execution.command.shell.ShellCommand
 import org.buildbat.filesystem.directory.Directory
 
 class TomcatShellCommand(

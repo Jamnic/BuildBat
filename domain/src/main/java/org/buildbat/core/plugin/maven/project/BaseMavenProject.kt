@@ -8,13 +8,26 @@ import org.buildbat.core.plugin.project.Project
 import org.buildbat.json.JsonObject
 
 class BaseMavenProject(
-        project: Project,
+        projectDelegate: Project,
         mavenConfigurationName: String,
-        private val jsonObject: JsonObject = project.json()
-                .add("maven" to mavenConfigurationName)
-) : MavenProject, Project by project {
+        private val jsonObject: JsonObject = projectDelegate.json().add(
+                "maven" to mavenConfigurationName)
+) : MavenProject,
+        Project by projectDelegate {
 
-    private val mavenConfiguration: MavenConfiguration by lazy { MavenConfigurations().find(mavenConfigurationName) }
+    private val mavenConfiguration: MavenConfiguration by lazy {
+        MavenConfigurations().find(mavenConfigurationName)
+    }
+
+    init {
+        MavenPom(directory().file("pom.xml"))
+                .modules(mavenConfiguration).forEach { addModule(it) }
+    }
+
+    constructor(
+            project: Project
+    ) : this(
+            project.json())
 
     constructor(
             jsonObject: JsonObject
@@ -31,12 +44,7 @@ class BaseMavenProject(
         return jsonObject
                 .add("modules" to modules()
                         .map { it.key() }
-                        .fold("[", { acc, name -> "$acc, {\"name\": \"$name\"}" }) + "]")
+                        .fold("[", { acc, name -> "$acc $name," }) + "]")
 
-    }
-
-    override fun modules(): List<Project> {
-        return MavenPom(directory().file("pom.xml"))
-                .modules(mavenConfiguration)
     }
 }

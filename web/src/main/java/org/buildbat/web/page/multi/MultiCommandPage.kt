@@ -21,6 +21,6 @@ class MultiCommandPage {
             @RequestBody request: MultiCommandRequest
     ) {
         taskPool.add(
-                multiCommand.execute(request.commandRequests.map { requestCommandMap[it] }))
+                multiCommand.createTask(request.commandRequests.map { requestCommandMap[it] }))
     }
 }

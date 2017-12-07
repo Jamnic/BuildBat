@@ -1,6 +1,6 @@
 package org.buildbat.poc
 
-import org.buildbat.core.future.BaseFutureTask
+import org.buildbat.core.futuretask.BaseFutureTask
 import org.buildbat.core.task.TaskPoolProvider
 import org.buildbat.core.task.executor.LocalExecutor
 import org.junit.Test
@@ -21,7 +21,7 @@ class TaskExecutingTest {
 //                LocalExecutor("Dean", "localhost")
         )
 
-        var counter = AtomicInteger(0)
+        val counter = AtomicInteger(0)
 
         list.forEach { taskPool.registerObserver(it) }
 

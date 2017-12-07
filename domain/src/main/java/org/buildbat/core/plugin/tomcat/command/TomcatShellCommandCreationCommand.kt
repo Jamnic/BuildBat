@@ -1,25 +1,42 @@
 package org.buildbat.core.plugin.tomcat.command
 
+import org.buildbat.core.execution.command.request.ShellCommandCreationCommand
+import org.buildbat.core.execution.command.shell.parametrized.ParametrizedShellCommand
+import org.buildbat.core.execution.command.shell.ShellCommand
+import org.buildbat.core.execution.command.shell.submodule.SubmoduleParametrizedShellCommand
+import org.buildbat.core.plugin.tomcat.configuration.TomcatConfiguration
 import org.buildbat.core.plugin.tomcat.configuration.TomcatConfigurations
+import org.buildbat.core.plugin.tomcat.project.WarProject
 import org.buildbat.core.plugin.tomcat.project.WarProjects
-import org.buildbat.execution.command.request.ShellCommandCreationCommand
-import org.buildbat.execution.command.shell.ParametrizedShellCommand
-import org.buildbat.execution.command.shell.ShellCommand
 
 class TomcatShellCommandCreationCommand(
         private val command: String,
-        private val projectName: String,
-        private val tomcatConfiguration: String,
-        private val tomcatConfigurations: TomcatConfigurations = TomcatConfigurations(),
-        private val warProjects: WarProjects = WarProjects()
+        private val warProject: WarProject,
+        private val tomcatConfiguration: TomcatConfiguration
 ) : ShellCommandCreationCommand {
 
+    constructor(
+            command: String,
+            warProjectName: String,
+            tomcatConfigurationName: String
+    ) : this(
+            command,
+            WarProjects().find(warProjectName),
+            TomcatConfigurations().find(tomcatConfigurationName))
+
     override fun createShellCommand(): ShellCommand {
-        val tomcatConfiguration = tomcatConfigurations.find(tomcatConfiguration)
+        val container = tomcatConfiguration.tomcatContainer()
+
         return ParametrizedShellCommand(
                 ParametrizedShellCommand(
-                        TomcatShellCommand(command, tomcatConfiguration.tomcatContainer().home()),
-                        tomcatConfiguration),
-                warProjects.find(projectName))
+                        ParametrizedShellCommand(
+                                SubmoduleParametrizedShellCommand(
+                                        TomcatShellCommand(
+                                                command,
+                                                container.home()),
+                                        warProject),
+                                warProject),
+                        container),
+                tomcatConfiguration)
     }
 }

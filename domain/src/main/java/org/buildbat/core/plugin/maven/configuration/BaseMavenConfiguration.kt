@@ -10,11 +10,10 @@ class BaseMavenConfiguration(
         name: String,
         version: String,
         homePath: String,
-        jsonObject: JsonObject = JsonObject(
+        json: JsonEntity = BaseJsonEntity(name, JsonObject(
                 "name" to name,
                 "version" to version,
-                "home" to homePath),
-        json: JsonEntity = BaseJsonEntity(name, jsonObject)
+                "home" to homePath))
 ) : MavenConfiguration, JsonEntity by json {
 
     private val home: Directory by lazy { Directory(homePath) }
@@ -26,8 +25,7 @@ class BaseMavenConfiguration(
     ) : this(
             jsonObject["name"],
             jsonObject["version"],
-            jsonObject["home"],
-            jsonObject)
+            jsonObject["home"])
 
     override fun home(): Directory {
         return home

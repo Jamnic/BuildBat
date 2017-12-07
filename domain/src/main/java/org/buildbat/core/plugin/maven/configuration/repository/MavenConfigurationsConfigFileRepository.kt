@@ -11,7 +11,10 @@ class MavenConfigurationsConfigFileRepository(
         configFile: ConfigFile
 ) : ConfigFileRepository<MavenConfiguration>(configFile) {
 
-    constructor(configFilePath: String) : this(ConfigFile(configFilePath))
+    constructor(
+            configFilePath: String
+    ) : this(
+            ConfigFile(configFilePath))
 
     override fun createFromJson(json: JsonObject) = BaseMavenConfiguration(json)
     override fun createFromName(name: String) = EmptyMavenConfiguration()

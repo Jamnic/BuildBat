@@ -1,29 +1,26 @@
 package org.buildbat.core.plugin.tomcat
 
-import org.buildbat.core.future.BaseFutureTask
-import org.buildbat.core.future.FutureTask
+import org.buildbat.core.execution.command.shell.ShellCommand
+import org.buildbat.core.execution.executable.LoggedExecutable
+import org.buildbat.core.futuretask.BaseFutureTask
+import org.buildbat.core.futuretask.FutureTask
 import org.buildbat.core.log.LogFactory
-import org.buildbat.core.plugin.tomcat.command.TomcatShellCommand
 import org.buildbat.core.plugin.tomcat.configuration.TomcatConfiguration
 import org.buildbat.core.plugin.tomcat.project.WarProject
-import org.buildbat.execution.command.shell.ParametrizedShellCommand
-import org.buildbat.execution.executable.LoggedExecutable
 
-class Tomcat(
-        private val logFactory: LogFactory = LogFactory()
-) {
+class Tomcat {
 
-    fun execute(command: String, project: WarProject, tomcatConfiguration: TomcatConfiguration): FutureTask<TomcatConfiguration> {
-        val logFile = logFactory.new(project.key())
-        val tomcatContainer = tomcatConfiguration.tomcatContainer()
+    fun createTask(
+            command: ShellCommand,
+            project: WarProject,
+            tomcatConfiguration: TomcatConfiguration
+    ): FutureTask<TomcatConfiguration> {
+
+        val logFile = LogFactory().new(project.key())
         project.addLog(logFile)
-        return BaseFutureTask({ TomcatShellCommand(command, tomcatContainer.home()) })
-                .then { ParametrizedShellCommand(it, project) }
-                .then { ParametrizedShellCommand(it, tomcatContainer) }
-                .then { ParametrizedShellCommand(it, tomcatConfiguration) }
+        return BaseFutureTask({ command })
                 .then { LoggedExecutable(it, logFile) }
                 .then { it.execute() }
                 .then { tomcatConfiguration }
     }
-
 }

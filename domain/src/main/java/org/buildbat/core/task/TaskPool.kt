@@ -1,8 +1,8 @@
 package org.buildbat.core.task
 
 import org.apache.tomcat.util.collections.SynchronizedQueue
-import org.buildbat.core.future.EmptyFutureTask
-import org.buildbat.core.future.FutureTask
+import org.buildbat.core.futuretask.EmptyFutureTask
+import org.buildbat.core.futuretask.FutureTask
 
 class TaskPool(
         private val tasks: SynchronizedQueue<FutureTask<Any>> = SynchronizedQueue(),

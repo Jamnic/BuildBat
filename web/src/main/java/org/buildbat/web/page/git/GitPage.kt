@@ -1,9 +1,9 @@
 package org.buildbat.web.page.git
 
 import org.buildbat.core.plugin.git.Git
+import org.buildbat.core.plugin.git.command.GitShellCommandCreationCommand
 import org.buildbat.core.plugin.git.project.GitProjects
 import org.buildbat.core.task.TaskPoolProvider
-import org.buildbat.web.page.git.request.CloneRequest
 import org.buildbat.web.page.git.request.GitExecutionRequest
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -23,14 +23,13 @@ class GitPage {
 
     @PostMapping
     fun command(@RequestBody request: GitExecutionRequest) {
+        val gitProject = gitProjects.find(request.projectName)
         taskPool.add(
-                git.execute(request.command, gitProjects.find(request.projectName)))
-    }
-
-    // TODO deprecated?
-    @PostMapping("/clone")
-    fun clone(@RequestBody request: CloneRequest) {
-        taskPool.add(
-                git.clone(request.repository, gitProjects.directory()))
+                git.createTask(
+                        GitShellCommandCreationCommand(
+                                request.command,
+                                gitProject)
+                                .createShellCommand(),
+                        gitProject))
     }
 }

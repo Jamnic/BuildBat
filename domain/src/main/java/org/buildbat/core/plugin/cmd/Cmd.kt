@@ -1,25 +1,20 @@
 package org.buildbat.core.plugin.cmd
 
-import org.buildbat.core.future.BaseFutureTask
-import org.buildbat.core.future.FutureTask
+import org.buildbat.core.execution.command.shell.ShellCommand
+import org.buildbat.core.execution.executable.LoggedExecutable
+import org.buildbat.core.futuretask.BaseFutureTask
+import org.buildbat.core.futuretask.FutureTask
 import org.buildbat.core.log.LogFactory
-import org.buildbat.core.plugin.cmd.command.CmdShellCommand
 import org.buildbat.core.plugin.project.BaseProjects
 import org.buildbat.core.plugin.project.Project
-import org.buildbat.execution.command.shell.ParametrizedShellCommand
-import org.buildbat.execution.executable.LoggedExecutable
 
-class Cmd(
-        private val logFactory: LogFactory = LogFactory(),
-        private val projects: BaseProjects = BaseProjects()
-) {
+class Cmd {
 
-    fun execute(command: String, project: Project): FutureTask<Project> {
-        val logFile = logFactory.new(project.key())
+    fun createTask(command: ShellCommand, project: Project): FutureTask<Project> {
+        val logFile = LogFactory().new(project.key())
         project.addLog(logFile)
-        return BaseFutureTask({ CmdShellCommand(command, project.directory()) })
-                .then { ParametrizedShellCommand(it, project) }
+        return BaseFutureTask({ command })
                 .then { LoggedExecutable(it, logFile) }
-                .then { projects.save(project) }
+                .then { BaseProjects().save(project) }
     }
 }

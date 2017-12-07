@@ -1,9 +1,7 @@
 package org.buildbat.core.task.executor
 
-import kotlinx.coroutines.experimental.Deferred
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.runBlocking
-import org.buildbat.core.future.FutureTask
 import org.buildbat.core.task.TaskPoolProvider
 import org.buildbat.json.BaseJsonEntity
 import org.buildbat.json.JsonEntity
@@ -42,31 +40,20 @@ class LocalExecutor(
         return isFree
     }
 
-//    private fun tryToExecuteTask() {
-//        Thread(Runnable {
-//            val thread = Thread(Runnable {
-//                if (isFree && taskPool.isNotEmpty()) {
-//                    isFree = false
-//                    taskPool.get().execute().invoke()
-//                    isFree = true
-//
-//                    tryToExecuteTask()
-//                }
-//            })
-//            thread.start()
-//            thread.join()
-//        }).start()
-//    }
-
     private fun tryToExecuteTask() {
         runBlocking {
             if (isFree && taskPool.isNotEmpty()) {
-                isFree = false
-                async {
-                    (taskPool.get()).execute().invoke()
-                }.await()
-                isFree = true
-                tryToExecuteTask()
+                try {
+                    isFree = false
+                    async {
+                        (taskPool.get()).execute().invoke()
+                    }.await()
+                } catch (e: Exception) {
+                    // TODO insert exeption handling
+                } finally {
+                    isFree = true
+                    tryToExecuteTask()
+                }
             }
         }
     }

@@ -1,23 +1,19 @@
 package org.buildbat.core.plugin.maven
 
-import org.buildbat.core.future.BaseFutureTask
-import org.buildbat.core.future.FutureTask
+import org.buildbat.core.execution.command.shell.ShellCommand
+import org.buildbat.core.execution.executable.LoggedExecutable
+import org.buildbat.core.futuretask.BaseFutureTask
+import org.buildbat.core.futuretask.FutureTask
 import org.buildbat.core.log.LogFactory
-import org.buildbat.core.plugin.maven.command.MavenShellCommand
 import org.buildbat.core.plugin.maven.project.MavenProject
 import org.buildbat.core.plugin.maven.project.MavenProjects
-import org.buildbat.execution.command.shell.ParametrizedShellCommand
-import org.buildbat.execution.executable.LoggedExecutable
 
-class Maven(
-        private val log: LogFactory = LogFactory()
-) {
+class Maven {
 
-    fun execute(command: String, mavenProject: MavenProject): FutureTask<MavenProject> {
-        val logFile = log.new(mavenProject.key())
+    fun createTask(command: ShellCommand, mavenProject: MavenProject): FutureTask<MavenProject> {
+        val logFile = LogFactory().new(mavenProject.key())
         mavenProject.addLog(logFile)
-        return BaseFutureTask({ MavenShellCommand(command, mavenProject) })
-                .then { ParametrizedShellCommand(it, mavenProject) }
+        return BaseFutureTask({ command })
                 .then { LoggedExecutable(it, logFile) }
                 .then { it.execute() }
                 .then { MavenProjects().save(mavenProject) }

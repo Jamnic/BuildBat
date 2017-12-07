@@ -5,11 +5,11 @@ import org.buildbat.core.plugin.project.Project
 import org.buildbat.json.JsonObject
 
 class BaseGitProject(
-        project: Project,
+        projectDelegate: Project,
         private val repository: String,
-        private val jsonObject: JsonObject = project.json().add(
-                "repository" to repository)
-) : GitProject, Project by project {
+        private val jsonObject: JsonObject = projectDelegate.json().add("repository" to repository)
+) : GitProject,
+        Project by projectDelegate {
 
     constructor(
             jsonObject: JsonObject

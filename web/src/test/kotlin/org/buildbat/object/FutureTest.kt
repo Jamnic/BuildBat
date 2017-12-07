@@ -1,6 +1,6 @@
 package org.buildbat.`object`
 
-import org.buildbat.core.future.BaseFutureTask
+import org.buildbat.core.futuretask.BaseFutureTask
 import org.junit.Test
 
 class FutureTest {

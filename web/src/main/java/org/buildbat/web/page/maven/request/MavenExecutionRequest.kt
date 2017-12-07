@@ -4,5 +4,6 @@ import org.buildbat.web.request.ExecutionRequest
 
 class MavenExecutionRequest(
         command: String = "",
-        projectName: String = ""
+        projectName: String = "",
+        val submoduleName: String = ""
 ) : ExecutionRequest(command, projectName)

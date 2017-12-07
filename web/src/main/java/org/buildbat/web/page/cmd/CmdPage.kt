@@ -1,6 +1,7 @@
 package org.buildbat.web.page.cmd
 
 import org.buildbat.core.plugin.cmd.Cmd
+import org.buildbat.core.plugin.cmd.command.CmdShellCommandCreationCommand
 import org.buildbat.core.plugin.project.BaseProjects
 import org.buildbat.core.task.TaskPoolProvider
 import org.buildbat.web.page.cmd.request.CmdExecutionRequest
@@ -18,11 +19,14 @@ class CmdPage {
     private val taskPool = TaskPoolProvider.taskPool
 
     @PostMapping
-    fun command(
-            @RequestBody request: CmdExecutionRequest
-    ) {
+    fun command(@RequestBody request: CmdExecutionRequest) {
+        val project = projects.find(request.projectName)
         taskPool.add(
-                cmd.execute(request.command, projects.find(request.projectName)))
+                cmd.createTask(
+                        CmdShellCommandCreationCommand(
+                                request.command,
+                                project)
+                                .createShellCommand(),
+                        project))
     }
-
 }

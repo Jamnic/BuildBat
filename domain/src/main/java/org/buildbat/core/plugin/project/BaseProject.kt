@@ -1,58 +1,50 @@
 package org.buildbat.core.plugin.project
 
-import org.buildbat.core.future.BaseFutureTask
-import org.buildbat.core.future.FutureTask
-import org.buildbat.core.log.LogFactory
-import org.buildbat.core.log.LogFile
-import org.buildbat.core.log.LogHistory
-import org.buildbat.core.plugin.cmd.command.CmdShellCommand
-import org.buildbat.execution.command.shell.ParametrizedShellCommand
-import org.buildbat.execution.executable.LoggedExecutable
+import org.buildbat.core.log.loggable.BaseLoggable
+import org.buildbat.core.log.loggable.Loggable
+import org.buildbat.core.plugin.project.multimodule.BaseMultiModuleProject
+import org.buildbat.core.plugin.project.multimodule.MultiModuleProject
 import org.buildbat.filesystem.directory.Directory
+import org.buildbat.json.BaseJsonEntity
+import org.buildbat.json.JsonEntity
 import org.buildbat.json.JsonObject
 
 class BaseProject(
         private val name: String,
         private val directory: Directory,
-        private val log: LogFactory = LogFactory(),
-        private val logHistory: LogHistory = LogHistory(name),
-        private val json: JsonObject = JsonObject("name" to name, "directory" to directory.path())
-) : Project {
+        private val jsonObject: JsonObject = JsonObject(
+                "name" to name,
+                "directory" to directory.path(),
+                "pathName" to name.replace(" ", "_")),
+        loggableDelegate: Loggable = BaseLoggable(name),
+        jsonEntityDelegate: JsonEntity = BaseJsonEntity(name, jsonObject),
+        multiModuleProjectDelegate: MultiModuleProject = BaseMultiModuleProject()
+) : Project,
+        Loggable by loggableDelegate,
+        JsonEntity by jsonEntityDelegate,
+        MultiModuleProject by multiModuleProjectDelegate {
 
-    constructor(json: JsonObject) : this(json["name"], json["directory"], json)
-    constructor(name: String, directory: String, json: JsonObject) : this(name, Directory(directory), json = json)
+    constructor(
+            jsonObject: JsonObject
+    ) : this(
+            jsonObject["name"],
+            jsonObject["directory"],
+            jsonObject)
 
-    override fun addLog(log: LogFile) {
-        logHistory.add(log)
-    }
-
-    override fun logs(): Collection<LogFile> {
-        return logHistory.logs()
-    }
+    constructor(
+            name: String,
+            directory: String,
+            jsonObject: JsonObject
+    ) : this(
+            name,
+            Directory(directory),
+            jsonObject)
 
     override fun directory(): Directory {
-        return directory
-    }
-
-    override fun key(): String {
-        return name
+        return this.directory
     }
 
     override fun json(): JsonObject {
-        return json.add(
-                "pathName" to name.replace(" ", "_"))
-    }
-
-    override fun modules(): List<Project> {
-        return listOf()
-    }
-
-    // TODO move somewhere else
-    override fun cmd(command: String): FutureTask<Project> {
-        val logFile = log.new(name)
-        return BaseFutureTask({ CmdShellCommand(command, this.directory()) })
-                .then { ParametrizedShellCommand(it, this) }
-                .then { LoggedExecutable(it, logFile) }
-                .then { this }
+        return this.jsonObject
     }
 }

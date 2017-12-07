@@ -4,13 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <artifactId>web</artifactId>
+
     <parent>
         <artifactId>core</artifactId>
         <groupId>org.buildbat</groupId>
         <version>0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>web</artifactId>
+    <packaging>war</packaging>
 
     <properties>
         <start-class>org.buildbat.web.App</start-class>

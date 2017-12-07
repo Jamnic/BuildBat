@@ -1,6 +1,7 @@
 package org.buildbat.web.page.maven
 
 import org.buildbat.core.plugin.maven.Maven
+import org.buildbat.core.plugin.maven.command.MavenShellCommandCreationCommand
 import org.buildbat.core.plugin.maven.project.MavenProjects
 import org.buildbat.core.task.TaskPoolProvider
 import org.buildbat.web.page.maven.request.MavenExecutionRequest
@@ -29,9 +30,15 @@ class MavenPage {
 
     @PostMapping
     fun command(@RequestBody request: MavenExecutionRequest) {
+        val mavenProject = mavenProjects.find(request.projectName)
+
         taskPool.add(
-                maven.execute(
-                        request.command,
-                        mavenProjects.find(request.projectName)))
+                maven.createTask(
+                        MavenShellCommandCreationCommand(
+                                request.command,
+                                mavenProject,
+                                request.submoduleName)
+                                .createShellCommand(),
+                        mavenProject))
     }
 }

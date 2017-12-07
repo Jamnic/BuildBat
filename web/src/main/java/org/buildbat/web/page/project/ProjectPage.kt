@@ -33,17 +33,13 @@ class ProjectPage {
     }
 
     @DeleteMapping
-    fun delete(
-            @PathVariable projectName: String
-    ) {
+    fun delete(@PathVariable projectName: String) {
         projects.remove(projectName)
     }
 
     @PutMapping
-    fun add(
-            @PathVariable projectName: String,
-            @RequestBody request: AddProjectRequest
-    ) {
+    fun add(@PathVariable projectName: String,
+            @RequestBody request: AddProjectRequest) {
         val params = request.customParams.map { entry -> kotlin.Pair(entry.key, entry.value) }.toTypedArray()
 
         projects.save(BaseProject(JsonObject(
