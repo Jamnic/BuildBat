@@ -21,11 +21,6 @@
     <dependencies>
         <dependency>
             <groupId>org.buildbat</groupId>
-            <artifactId>execution</artifactId>
-            <version>0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.buildbat</groupId>
             <artifactId>domain</artifactId>
             <version>0.1-SNAPSHOT</version>
         </dependency>
