@@ -111,6 +111,7 @@
     <build>
 
         <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
+        <resources><resource><directory>${project.basedir}/src/main/resources</directory></resource></resources>
         <!--<testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>-->
 
         <plugins>

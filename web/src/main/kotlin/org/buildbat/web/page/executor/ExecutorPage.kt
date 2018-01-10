@@ -11,18 +11,17 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/executor")
 class ExecutorPage {
 
-    private val executors = Executors()
     private val taskPool = TaskPoolProvider.taskPool
 
     @PutMapping
     fun put(@RequestBody request: NewExecutorRequest) {
         val executor = LocalExecutor(request.name, request.host)
-        executors.save(executor)
+        Executors().save(executor)
         taskPool.registerObserver(executor)
     }
 
     @GetMapping
     fun list(): List<ExecutorInfoResponse> {
-        return executors.list().map { ExecutorInfoResponse(it.key(), it.host()) }
+        return Executors().list().map { ExecutorInfoResponse(it.key(), it.host()) }
     }
 }
