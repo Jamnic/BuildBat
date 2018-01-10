@@ -12,8 +12,6 @@
         <version>0.1-SNAPSHOT</version>
     </parent>
 
-    <packaging>war</packaging>
-
     <properties>
         <start-class>org.buildbat.web.App</start-class>
     </properties>
