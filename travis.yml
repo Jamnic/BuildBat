@@ -1,0 +1,6 @@
+language: java
+jdk:
+  - oraclejdk8
+env:
+  - SCRIPT=bin/unit-tests.sh
+  - SCRIPT=bin/journey-test.sh
