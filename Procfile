@@ -1,1 +1,1 @@
-web: mvn spring-boot:run
+web: java -jar web/target/web-0.1-SNAPSHOT.jar
